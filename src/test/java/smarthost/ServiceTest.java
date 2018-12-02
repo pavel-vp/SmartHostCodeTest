@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class ServiceTest {
 
@@ -36,8 +37,12 @@ public class ServiceTest {
     public void divideListOnTwo_test() {
         CustomersRec custs = customerService.divideCustomers(initList);
 
-        assertEquals(custs, null);
+        assertNotEquals(custs, null);
+        assertEquals(custs.getCustomersAsEconomy().size(), 4);
+        assertEquals(custs.getCustomersAsPremium().size(), 6);
+
     }
+
 }
 
 
