@@ -1,6 +1,8 @@
 package com.smarthost.model;
 
-public class RoomsEarnRec {
+import java.io.Serializable;
+
+public class RoomsEarnRec implements Serializable {
     private int roomsUsed;
     private int earned;
 

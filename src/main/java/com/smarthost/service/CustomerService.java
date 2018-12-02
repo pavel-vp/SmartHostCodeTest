@@ -3,18 +3,20 @@ package com.smarthost.service;
 import com.smarthost.model.CustomersRec;
 import com.smarthost.model.EarningRec;
 import com.smarthost.model.RoomsEarnRec;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+@Service
 public class CustomerService {
 
     public CustomersRec divideCustomers(List<Integer> initList) {
         CustomersRec customersRec = new CustomersRec();
-        customersRec.setCustomersAsEconomy(new ArrayList<Integer>());
-        customersRec.setCustomersAsPremium(new ArrayList<Integer>());
+        customersRec.setCustomersAsEconomy(new ArrayList<>());
+        customersRec.setCustomersAsPremium(new ArrayList<>());
 
         for (Integer price : initList) {
             if (price < 100) {
@@ -23,13 +25,9 @@ public class CustomerService {
                 customersRec.getCustomersAsPremium().add(price);
             }
         }
-        Comparator<Integer> reversalComparator = new Comparator<Integer>() {
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2) * (-1);
-            }
-        };
-        Collections.sort(customersRec.getCustomersAsEconomy(), reversalComparator);
-        Collections.sort(customersRec.getCustomersAsPremium(), reversalComparator);
+        Comparator<Integer> reversalComparator = (o1, o2) -> o1.compareTo(o2) * (-1);
+        customersRec.getCustomersAsEconomy().sort(reversalComparator);
+        customersRec.getCustomersAsPremium().sort(reversalComparator);
         return customersRec;
     }
 
