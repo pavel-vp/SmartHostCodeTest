@@ -61,7 +61,60 @@ public class ServiceTest {
         //Usage Economy: 3 (EUR 167)
         assertEquals(earningRec.getEconomyRooms().getRoomsUsed(),3);
         assertEquals(earningRec.getEconomyRooms().getEarned(),167);
+    }
 
+    @Test
+    public void calcEarning_2_test() {
+        //Free Premium rooms: 7
+        //Free Economy rooms: 5
+        int freePremiumRooms = 7;
+        int freeEconomyRooms = 5;
+
+        CustomersRec custs = customerService.divideCustomers(initList);
+        EarningRec earningRec = customerService.calcEarning(custs, freeEconomyRooms, freePremiumRooms);
+
+        //Usage Premium: 6 (EUR 1054)
+        assertEquals(earningRec.getPremiumRooms().getRoomsUsed(),6);
+        assertEquals(earningRec.getPremiumRooms().getEarned(),1054);
+        //Usage Economy: 4 (EUR 189)
+        assertEquals(earningRec.getEconomyRooms().getRoomsUsed(),4);
+        assertEquals(earningRec.getEconomyRooms().getEarned(),189);
+    }
+
+    @Test
+    public void calcEarning_3_test() {
+        //Free Premium rooms: 2
+        //Free Economy rooms: 7
+        int freePremiumRooms = 2;
+        int freeEconomyRooms = 7;
+
+        CustomersRec custs = customerService.divideCustomers(initList);
+        EarningRec earningRec = customerService.calcEarning(custs, freeEconomyRooms, freePremiumRooms);
+
+        //Usage Premium: 2 (EUR 583)
+        assertEquals(earningRec.getPremiumRooms().getRoomsUsed(),2);
+        assertEquals(earningRec.getPremiumRooms().getEarned(),583);
+        //Usage Economy: 4 (EUR 189)
+        assertEquals(earningRec.getEconomyRooms().getRoomsUsed(),4);
+        assertEquals(earningRec.getEconomyRooms().getEarned(),189);
+    }
+
+    @Test
+    public void calcEarning_4_test() {
+        //Free Premium rooms: 7
+        //Free Economy rooms: 1
+        int freePremiumRooms = 7;
+        int freeEconomyRooms = 1;
+
+        CustomersRec custs = customerService.divideCustomers(initList);
+        EarningRec earningRec = customerService.calcEarning(custs, freeEconomyRooms, freePremiumRooms);
+
+        //Usage Premium: 7 (EUR 1153)
+        assertEquals(earningRec.getPremiumRooms().getRoomsUsed(),7);
+        assertEquals(earningRec.getPremiumRooms().getEarned(), 1153);
+        //Usage Economy: 1 (EUR 45)
+        assertEquals(earningRec.getEconomyRooms().getRoomsUsed(),1);
+        assertEquals(earningRec.getEconomyRooms().getEarned(),45);
     }
 
 }

@@ -48,11 +48,13 @@ public class CustomerService {
             }
         }
 
+        boolean isUpgrade = custs.getCustomersAsEconomy().size() > freeEconomyRooms;
         // then, try to fill economy customers
         for (int price : custs.getCustomersAsEconomy()) {
-            if (freePremiumRooms > 0) {
-                earningRec.getEconomyRooms().setRoomsUsed(earningRec.getEconomyRooms().getRoomsUsed() + 1);
-                earningRec.getEconomyRooms().setEarned(earningRec.getEconomyRooms().getEarned() + price);
+            if (freePremiumRooms > 0 &&
+                    isUpgrade ) {
+                earningRec.getPremiumRooms().setRoomsUsed(earningRec.getPremiumRooms().getRoomsUsed() + 1);
+                earningRec.getPremiumRooms().setEarned(earningRec.getPremiumRooms().getEarned() + price);
                 freePremiumRooms--;
             } else {
                 if (freeEconomyRooms > 0) {
