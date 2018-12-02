@@ -23,7 +23,7 @@ public class CustomerService {
                 customersRec.getCustomersAsPremium().add(price);
             }
         }
-        Comparator<? super Integer> reversalComparator = new Comparator<Integer>() {
+        Comparator<Integer> reversalComparator = new Comparator<Integer>() {
             public int compare(Integer o1, Integer o2) {
                 return o1.compareTo(o2) * (-1);
             }
@@ -34,36 +34,37 @@ public class CustomerService {
     }
 
 
-    public EarningRec calcEarning(CustomersRec custs, int freeEconomyRooms, int freePremiumRooms) {
-        EarningRec earningRec = new EarningRec();
-        earningRec.setEconomyRooms(new RoomsEarnRec());
-        earningRec.setPremiumRooms(new RoomsEarnRec());
+    public EarningRec calcEarning(List<Integer> initList, int freeEconomyRooms, int freePremiumRooms) {
+        CustomersRec customersRec = divideCustomers(initList);
+
+        int economyRooms = 0, economyEarned = 0, premiumRooms = 0, premiumEarned = 0;
 
         // For the first, lets fill Premium clients into rooms
-        for (int price : custs.getCustomersAsPremium()) {
+        for (int price : customersRec.getCustomersAsPremium()) {
             if (freePremiumRooms > 0) {
-                earningRec.getPremiumRooms().setRoomsUsed(earningRec.getPremiumRooms().getRoomsUsed() + 1);
-                earningRec.getPremiumRooms().setEarned(earningRec.getPremiumRooms().getEarned() + price);
+                premiumRooms++;
+                premiumEarned += price;
                 freePremiumRooms--;
             }
         }
 
-        boolean isUpgrade = custs.getCustomersAsEconomy().size() > freeEconomyRooms;
+        boolean isUpgrade = customersRec.getCustomersAsEconomy().size() > freeEconomyRooms;
         // then, try to fill economy customers
-        for (int price : custs.getCustomersAsEconomy()) {
+        for (int price : customersRec.getCustomersAsEconomy()) {
             if (freePremiumRooms > 0 &&
                     isUpgrade ) {
-                earningRec.getPremiumRooms().setRoomsUsed(earningRec.getPremiumRooms().getRoomsUsed() + 1);
-                earningRec.getPremiumRooms().setEarned(earningRec.getPremiumRooms().getEarned() + price);
+                premiumRooms++;
+                premiumEarned += price;
                 freePremiumRooms--;
             } else {
                 if (freeEconomyRooms > 0) {
-                    earningRec.getEconomyRooms().setRoomsUsed(earningRec.getEconomyRooms().getRoomsUsed() + 1);
-                    earningRec.getEconomyRooms().setEarned(earningRec.getEconomyRooms().getEarned() + price);
+                    economyRooms++;
+                    economyEarned += price;
                     freeEconomyRooms--;
                 }
             }
         }
-        return earningRec;
+        return new EarningRec(new RoomsEarnRec(economyRooms, economyEarned),
+                              new RoomsEarnRec(premiumRooms, premiumEarned));
     }
 }

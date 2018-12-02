@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class ServiceTest {
 
-    List<Integer> initList = Arrays.asList(
+    private List<Integer> initList = Arrays.asList(
             23,
             45,
             155,
@@ -52,8 +52,7 @@ public class ServiceTest {
         int freePremiumRooms = 3;
         int freeEconomyRooms = 3;
 
-        CustomersRec custs = customerService.divideCustomers(initList);
-        EarningRec earningRec = customerService.calcEarning(custs, freeEconomyRooms, freePremiumRooms);
+        EarningRec earningRec = customerService.calcEarning(initList, freeEconomyRooms, freePremiumRooms);
 
         //Usage Premium: 3 (EUR 738)
         assertEquals(earningRec.getPremiumRooms().getRoomsUsed(),3);
@@ -70,8 +69,7 @@ public class ServiceTest {
         int freePremiumRooms = 7;
         int freeEconomyRooms = 5;
 
-        CustomersRec custs = customerService.divideCustomers(initList);
-        EarningRec earningRec = customerService.calcEarning(custs, freeEconomyRooms, freePremiumRooms);
+        EarningRec earningRec = customerService.calcEarning(initList, freeEconomyRooms, freePremiumRooms);
 
         //Usage Premium: 6 (EUR 1054)
         assertEquals(earningRec.getPremiumRooms().getRoomsUsed(),6);
@@ -88,8 +86,7 @@ public class ServiceTest {
         int freePremiumRooms = 2;
         int freeEconomyRooms = 7;
 
-        CustomersRec custs = customerService.divideCustomers(initList);
-        EarningRec earningRec = customerService.calcEarning(custs, freeEconomyRooms, freePremiumRooms);
+        EarningRec earningRec = customerService.calcEarning(initList, freeEconomyRooms, freePremiumRooms);
 
         //Usage Premium: 2 (EUR 583)
         assertEquals(earningRec.getPremiumRooms().getRoomsUsed(),2);
@@ -106,8 +103,7 @@ public class ServiceTest {
         int freePremiumRooms = 7;
         int freeEconomyRooms = 1;
 
-        CustomersRec custs = customerService.divideCustomers(initList);
-        EarningRec earningRec = customerService.calcEarning(custs, freeEconomyRooms, freePremiumRooms);
+        EarningRec earningRec = customerService.calcEarning(initList, freeEconomyRooms, freePremiumRooms);
 
         //Usage Premium: 7 (EUR 1153)
         assertEquals(earningRec.getPremiumRooms().getRoomsUsed(),7);

@@ -4,6 +4,14 @@ public class RoomsEarnRec {
     private int roomsUsed;
     private int earned;
 
+    public RoomsEarnRec(int roomsUsed, int earned) {
+        this.roomsUsed = roomsUsed;
+        this.earned = earned;
+    }
+
+    public RoomsEarnRec() {
+    }
+
     public int getRoomsUsed() {
         return roomsUsed;
     }
